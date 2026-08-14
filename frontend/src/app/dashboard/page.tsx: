@@ -1,0 +1,128 @@
+"use client";
+
+import React from 'react';
+import { Users, BookOpen, AlertTriangle, CheckCircle, Printer, ArrowUpRight } from 'lucide-react';
+import Link from 'next/link';
+
+export default function AnalyticsDashboard() {
+  const statistics = { totalStudents: 142, activeClasses: 6, pendingApprovals: 4, schoolAverage: 68.4 };
+  const gradeDistribution = [
+    { grade: 'Grade A (70 - 100%)', count: 32, percentage: '22.5%', color: 'bg-emerald-500' },
+    { grade: 'Grade B (60 - 69%)', count: 45, percentage: '31.6%', color: 'bg-indigo-500' },
+    { grade: 'Grade C (50 - 59%)', count: 38, percentage: '26.7%', color: 'bg-amber-500' },
+    { grade: 'Grade F (0 - 49%)', count: 27, percentage: '19.2%', color: 'bg-rose-500' },
+  ];
+
+  return (
+    <div className="space-y-6">
+      
+      {/* Title Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2">
+        <div>
+          <h2 className="text-xl font-bold tracking-tight text-white">System Analytics & Overview</h2>
+          <p className="text-xs text-slate-400">Live operational data aggregated across active term frameworks.</p>
+        </div>
+      </div>
+
+      {/* Metrics Cards Grid */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
+        <div className="bg-slate-900/60 backdrop-blur-xl p-4 rounded-2xl border border-slate-800/80 space-y-2">
+          <div className="flex items-center justify-between text-slate-400">
+            <span className="text-xs font-semibold">Total Enrolled</span>
+            <div className="p-2 bg-indigo-500/10 text-indigo-400 rounded-xl"><Users className="h-4 w-4" /></div>
+          </div>
+          <div className="text-2xl font-black text-white font-mono">{statistics.totalStudents}</div>
+          <p className="text-[10px] text-slate-500">Active Students</p>
+        </div>
+
+        <div className="bg-slate-900/60 backdrop-blur-xl p-4 rounded-2xl border border-slate-800/80 space-y-2">
+          <div className="flex items-center justify-between text-slate-400">
+            <span className="text-xs font-semibold">Classes</span>
+            <div className="p-2 bg-emerald-500/10 text-emerald-400 rounded-xl"><BookOpen className="h-4 w-4" /></div>
+          </div>
+          <div className="text-2xl font-black text-white font-mono">{statistics.activeClasses}</div>
+          <p className="text-[10px] text-slate-500">Configured Arms</p>
+        </div>
+
+        <div className="bg-slate-900/60 backdrop-blur-xl p-4 rounded-2xl border border-slate-800/80 space-y-2">
+          <div className="flex items-center justify-between text-slate-400">
+            <span className="text-xs font-semibold">Pending Audit</span>
+            <div className="p-2 bg-amber-500/10 text-amber-400 rounded-xl"><AlertTriangle className="h-4 w-4" /></div>
+          </div>
+          <div className="text-2xl font-black text-amber-400 font-mono">{statistics.pendingApprovals}</div>
+          <p className="text-[10px] text-slate-500">Unapproved Sheets</p>
+        </div>
+
+        <div className="bg-slate-900/60 backdrop-blur-xl p-4 rounded-2xl border border-slate-800/80 space-y-2">
+          <div className="flex items-center justify-between text-slate-400">
+            <span className="text-xs font-semibold">Mean Performance</span>
+            <div className="p-2 bg-teal-500/10 text-teal-400 rounded-xl"><CheckCircle className="h-4 w-4" /></div>
+          </div>
+          <div className="text-2xl font-black text-white font-mono">{statistics.schoolAverage}%</div>
+          <p className="text-[10px] text-emerald-400 font-mono flex items-center">
+            <span>+2.4% vs last term</span>
+          </p>
+        </div>
+      </div>
+
+      {/* Main Analytics + Actions Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        {/* Grade Distribution Breakdown */}
+        <div className="bg-slate-900/60 backdrop-blur-xl p-5 rounded-2xl border border-slate-800/80 lg:col-span-2 space-y-4">
+          <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300">Termly Grade Breakdown</h3>
+            <span className="text-[10px] font-mono text-slate-500">SS 1 Matrix</span>
+          </div>
+
+          <div className="space-y-3.5">
+            {gradeDistribution.map((item, idx) => (
+              <div key={idx} className="space-y-1.5">
+                <div className="flex justify-between text-xs">
+                  <span className="font-semibold text-slate-300">{item.grade}</span>
+                  <span className="font-mono text-slate-400">{item.count} Students ({item.percentage})</span>
+                </div>
+                <div className="w-full bg-slate-950 h-2 rounded-full overflow-hidden p-0.5 border border-slate-800/50">
+                  <div className={`${item.color} h-full rounded-full transition-all duration-500`} style={{ width: item.percentage }} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Action Shortcuts Panel */}
+        <div className="bg-slate-900/60 backdrop-blur-xl p-5 rounded-2xl border border-slate-800/80 space-y-4">
+          <div className="border-b border-slate-800/80 pb-3">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300">Quick Actions</h3>
+          </div>
+
+          <div className="space-y-2">
+            <Link 
+              href="/dashboard/reports/1" 
+              className="flex items-center justify-between p-3.5 rounded-xl bg-slate-950/80 hover:bg-indigo-600/10 border border-slate-800/80 hover:border-indigo-500/30 text-xs text-slate-200 font-semibold group transition-all"
+            >
+              <div className="flex items-center space-x-3">
+                <Printer className="h-4 w-4 text-indigo-400" />
+                <span>View Terminal Report Card</span>
+              </div>
+              <ArrowUpRight className="h-4 w-4 text-slate-500 group-hover:text-indigo-400 group-hover:translate-x-0.5 transition-all" />
+            </Link>
+
+            <Link 
+              href="/dashboard/scores" 
+              className="flex items-center justify-between p-3.5 rounded-xl bg-slate-950/80 hover:bg-emerald-600/10 border border-slate-800/80 hover:border-emerald-500/30 text-xs text-slate-200 font-semibold group transition-all"
+            >
+              <div className="flex items-center space-x-3">
+                <BookOpen className="h-4 w-4 text-emerald-400" />
+                <span>Open Score Entry Matrix</span>
+              </div>
+              <ArrowUpRight className="h-4 w-4 text-slate-500 group-hover:text-emerald-400 group-hover:translate-x-0.5 transition-all" />
+            </Link>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  );
+}
